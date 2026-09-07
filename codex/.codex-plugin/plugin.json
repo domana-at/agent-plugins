@@ -2,5 +2,9 @@
   "name": "domana",
   "version": "1.0.0",
   "description": "Domana Brain skill for Codex",
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "author": {
+    "name": "Domana",
+    "url": "https://www.domana.at"
+  }
 }

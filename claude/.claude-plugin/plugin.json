@@ -1,5 +1,9 @@
 {
   "name": "domana",
   "version": "1.0.0",
-  "description": "Domana Brain: MCP server (https://mcp.domana.at/mcp) and the domana-brain skill"
+  "description": "Domana Brain: MCP server (https://mcp.domana.at/mcp) and the domana-brain skill",
+  "author": {
+    "name": "Domana",
+    "url": "https://www.domana.at"
+  }
 }
