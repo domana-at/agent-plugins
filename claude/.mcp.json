@@ -1,0 +1,6 @@
+{
+  "domana": {
+    "type": "http",
+    "url": "https://mcp.domana.at/mcp"
+  }
+}

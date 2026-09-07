@@ -1,0 +1,6 @@
+{
+  "name": "domana",
+  "version": "1.0.0",
+  "description": "Domana Brain skill for Codex",
+  "skills": "./skills/"
+}

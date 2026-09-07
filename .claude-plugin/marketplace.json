@@ -1,0 +1,11 @@
+{
+  "name": "domana-agents",
+  "owner": { "name": "Domana" },
+  "plugins": [
+    {
+      "name": "domana",
+      "source": "./claude",
+      "description": "Domana Brain: MCP server and skill for Claude Code"
+    }
+  ]
+}

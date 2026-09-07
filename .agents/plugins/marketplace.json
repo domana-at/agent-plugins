@@ -1,0 +1,10 @@
+{
+  "name": "domana-agents",
+  "plugins": [
+    {
+      "name": "domana",
+      "source": "./codex",
+      "description": "Domana Brain skill for Codex (the MCP server is registered with codex mcp add)"
+    }
+  ]
+}
