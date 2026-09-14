@@ -118,7 +118,8 @@ until the app has seen them.
 
 When the `domana` server is connected (Claude Code: installed by this plugin,
 sign in once with `/mcp`; Codex: `codex mcp add domana --url https://mcp.domana.at/mcp`
-then `codex mcp login domana`), these tools reach the synced knowledge:
+then `codex mcp login domana`; opencode: registered by this plugin, sign in once
+with `opencode mcp auth domana`), these tools reach the synced knowledge:
 
 | Tool | Use it for |
 |---|---|
@@ -129,6 +130,8 @@ then `codex mcp login domana`), these tools reach the synced knowledge:
 | `explore_connections` | the knowledge graph around a note or entity name |
 | `lint_knowledge` | broken links, orphans, missing indexes, duplicate names |
 | `create_note`, `append_note`, `edit_note`, `rewrite_note`, `move_note`, `trash_note` | writes: personal cloud spaces at once; in a team space the change becomes a **proposal the user approves in the Domana app** (see below) |
+| `propose_batch` | several related changes as ONE unit inside one space (create, append, edit, rewrite, move, trash, in order): checked up front, refused as a whole if one entry would fail; a personal space applies it in one transaction, a team space gets ONE proposal for the set |
+| `fetch_image` | download a picture (png, jpeg, webp, gif, up to 10 MB) from a public https URL into `assets/` beside a note; the reply carries the `![alt](assets/…)` line for you to write — in a team space it returns an `asset` entry to pass unchanged into `propose_batch` |
 | `await_proposal` | outcome of a team proposal: accepted, dismissed, expired or pending (one call waits up to 10 s) |
 
 Rules that the server enforces and you should respect up front:
@@ -139,6 +142,10 @@ Rules that the server enforces and you should respect up front:
   once with the id. Never propose the same change twice; the server returns the same id
   for a retry. A personal space marked `local_only` cannot be written through MCP (use the
   vault files for it).
+- Several changes that belong together (a note split, a reorganisation, a picture plus the
+  line that embeds it) go through `propose_batch`, not a run of single write calls: one
+  approval, all or nothing. `move` and `trash` entries name notes that already exist, not
+  ones the same batch creates.
 - `trash_note` moves notes to the restorable trash (30 days, Papierkorb in the app), never a
   hard delete. Use it only for what the user explicitly asked to remove. An imported file's
   local vault copy stays on disk.
