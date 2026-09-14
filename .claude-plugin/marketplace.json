@@ -10,5 +10,5 @@
       "description": "Domana Brain: MCP server and skill for Claude Code"
     }
   ],
-  "description": "Domana Brain plugins: connect Claude Code and Codex to your knowledge base over MCP."
+  "description": "Domana Brain plugins: connect Claude Code, Codex and opencode to your knowledge base over MCP."
 }

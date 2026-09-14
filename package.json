@@ -1,0 +1,15 @@
+{
+  "name": "domana-opencode",
+  "version": "1.0.0",
+  "description": "Domana Brain plugin for opencode: the domana MCP server and the domana-brain skill",
+  "type": "module",
+  "main": "opencode/plugin.js",
+  "files": [
+    "opencode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domana-at/agent-plugins.git"
+  },
+  "homepage": "https://www.domana.at"
+}
