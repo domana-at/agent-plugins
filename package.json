@@ -11,5 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/domana-at/agent-plugins.git"
   },
-  "homepage": "https://www.domana.at"
+  "homepage": "https://www.domana.at",
+  "scripts": {
+    "check:dashes": "node scripts/check-dashes.mjs"
+  }
 }

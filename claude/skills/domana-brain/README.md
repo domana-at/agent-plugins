@@ -2,7 +2,7 @@
 
 Official Domana agent skill. It lets a coding agent (Claude Code, Codex, …) read the
 user's personal Domana Brain and add new knowledge to it. The brain is a folder of
-plain Markdown files on the user's machine, kept in sync by the Domana desktop app —
+plain Markdown files on the user's machine, kept in sync by the Domana desktop app,
 so the skill is instructions plus conventions, not a client library.
 
 Status: **preview**. Personal, local scope only.
