@@ -18,8 +18,8 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 
-const EM = '—'
-const EN = '–'
+const EM = '—' // dash-ok: the literal character this gate detects, not prose
+const EN = '–' // dash-ok: the literal character this gate detects, not prose
 const DASH = new RegExp(`[${EM}${EN}]`)
 
 // Paths the gate does not own. Keep each entry justified: a skip nobody can
@@ -34,6 +34,7 @@ const SKIP = [
   /(^|\/)design\//,                    // ios_app: Claude Design export
   /(^|\/)support\.js$/,                // Design System runtime, vendored
   /(^|\/)fixtures\//,                  // byte-compared against generated output
+  /(^|\/)comparison\//,                // recorded model answers, quoted not authored
   /-lock\.(json|yaml)$/,
   /\.(png|jpe?g|gif|webp|svg|ico|pdf|zip|gz|woff2?|ttf|otf|mp4|mov|keystore|jks)$/i,
 ]
@@ -66,12 +67,21 @@ const INLINE_ALLOW = /dash-ok/
 const FILE_ALLOW = /dash-ok-file/
 
 // The stroke standing alone as a value: '-', "-", `-`, >-<, | - |.
+// The table-cell arm uses a lookahead for the closing pipe so that adjacent
+// empty cells (`| - | - |`) both match: consuming it would eat the separator
+// the next cell needs to start.
 const PLACEHOLDER = new RegExp(
-  `(['"\`]\\s*[${EM}${EN}]\\s*['"\`])|(>\\s*[${EM}${EN}]\\s*<)|(\\|\\s*[${EM}${EN}]\\s*\\|)`,
+  `(['"\`]\\s*[${EM}${EN}]\\s*['"\`])|(>\\s*[${EM}${EN}]\\s*<)|(\\|\\s*[${EM}${EN}]\\s*(?=\\|))`,
   'g',
 )
 
+// A line holding nothing but the stroke is a placeholder too: JSX and
+// Markdown both put an empty-value glyph on its own line, where the quotes
+// or pipes PLACEHOLDER looks for never appear.
+const LONE = new RegExp(`^\\s*[${EM}${EN}]\\s*$`)
+
 function strip(line) {
+  if (LONE.test(line)) return ''
   // Remove every occurrence the rule permits, then see what is left.
   let rest = line.replace(PLACEHOLDER, '')
   for (const re of ALLOWED) {
@@ -96,7 +106,14 @@ if (process.argv.includes('--selftest')) {
     [`const empty = '${EM}'`, false],
     [`<td>${EM}</td>`, false],
     [`| Name | ${EM} | 3 |`, false],
+    // Adjacent empty cells: the separator pipe is shared, so a consuming
+    // match would report the second one.
+    [`| Name | ${EM} | ${EM} |`, false],
+    [`| A | ${EM} | ${EM} | ${EM} |`, false],
     [`value={total === 0 ? "${EM}" : pct}`, false],
+    // A JSX or Markdown line holding only the glyph is a placeholder.
+    [`        ${EM}`, false],
+    [`  ${EN}  `, false],
     [`Bereich 10${EN}20 und ein Einschub ${EM} der stört.`, true],
     ['Nothing to see here.', false],
     // Graph triplet arrow stays: it is the format, not a dash.

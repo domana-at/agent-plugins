@@ -131,7 +131,7 @@ with `opencode mcp auth domana`), these tools reach the synced knowledge:
 | `lint_knowledge` | broken links, orphans, missing indexes, duplicate names |
 | `create_note`, `append_note`, `edit_note`, `rewrite_note`, `move_note`, `trash_note` | writes: personal cloud spaces at once; in a team space the change becomes a **proposal the user approves in the Domana app** (see below) |
 | `propose_batch` | several related changes as ONE unit inside one space (create, append, edit, rewrite, move, trash, in order): checked up front, refused as a whole if one entry would fail; a personal space applies it in one transaction, a team space gets ONE proposal for the set |
-| `fetch_image` | download a picture (png, jpeg, webp, gif, up to 10 MB) from a public https URL into `assets/` beside a note; the reply carries the `![alt](assets/…)` line for you to write, in a team space it returns an `asset` entry to pass unchanged into `propose_batch` |
+| `fetch_image` | download a picture (png, jpeg, webp, gif, up to 10 MB) from a public https URL into `assets/` beside a note; the reply carries the `![alt](assets/…)` line for you to write. In a team space it returns an `asset` entry to pass unchanged into `propose_batch` |
 | `await_proposal` | outcome of a team proposal: accepted, dismissed, expired or pending (one call waits up to 10 s) |
 
 Rules that the server enforces and you should respect up front:
