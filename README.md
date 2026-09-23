@@ -2,12 +2,12 @@
 
 Plugins that connect Claude Code, Codex and opencode to Domana Brain.
 
-- `claude/` — Claude Code plugin: the `domana` MCP server (`.mcp.json`,
+- `claude/`: Claude Code plugin: the `domana` MCP server (`.mcp.json`,
   `https://mcp.domana.at/mcp`) and the `domana-brain` skill.
-- `codex/` — Codex plugin: the `domana-brain` skill. The MCP server is
+- `codex/`: Codex plugin: the `domana-brain` skill. The MCP server is
   registered separately with `codex mcp add domana --url https://mcp.domana.at/mcp`
   so the entry has exactly one owner.
-- `opencode/` — opencode plugin: a JS module whose `config` hook registers both
+- `opencode/`: opencode plugin: a JS module whose `config` hook registers both
   the MCP server and the skill. opencode has no plugin marketplace; it installs
   npm/git packages, so the repository root doubles as the package
   (`domana-opencode`, entry point `opencode/plugin.js`).
@@ -44,7 +44,7 @@ The first command installs the package and writes the entry into
 `~/.config/opencode/opencode.json`; drop `-g` to install it for the current
 project only. Config is read once at startup, so restart opencode after
 installing. To turn the server off without removing the plugin, set it in your
-own config — user config wins over what the plugin adds:
+own config: user config wins over what the plugin adds:
 
 ```json
 { "mcp": { "domana": { "enabled": false } } }

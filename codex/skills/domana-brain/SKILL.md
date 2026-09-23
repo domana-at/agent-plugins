@@ -9,7 +9,7 @@ Domana Brain has two faces from an agent's seat:
 
 | Path | What it reaches | How |
 |---|---|---|
-| **Local vault** | The user's personal notes as `.md` files on this machine | plain file tools, rules in §2–§6 |
+| **Local vault** | The user's personal notes as `.md` files on this machine | plain file tools, rules in §2-§6 |
 | **`domana` MCP server** | The synced cloud knowledge: personal spaces, team spaces, semantic + keyword search, the knowledge graph, lint | the tools in §7, when the server is connected |
 
 Use the vault for reading and writing personal notes on this machine. Use the
@@ -27,7 +27,7 @@ In order:
    menu, in the "Personal vault" section of the storage dialog; they can copy it
    from there. Suggest they `export DOMANA_VAULT=<path>` so this step happens once.
 
-Do not try to extract the path from the app's internal storage — its format is
+Do not try to extract the path from the app's internal storage: its format is
 undocumented, platform-specific, and scraping it bypasses the user's consent.
 
 If the user has no folder bound (`vaultRoot` is optional and off by default), there
@@ -40,7 +40,7 @@ without it, tell the user to bind a folder in the app. Do not invent a folder.
   on disk it is `<vault>/ideas/rag.md`. Never create a literal `p/` folder. The MCP
   tools use the `p/…` form.
 - Only `.md` files are notes. Other files (PDFs, images) may sit in the vault as
-  imported originals — their extracted text exists only in the cloud.
+  imported originals: their extracted text exists only in the cloud.
 - Subfolders are free-form and user-defined. Mirror the user's existing structure
   rather than inventing a taxonomy.
 - Obsidian conventions round-trip unchanged: YAML frontmatter and `[[wikilinks]]`
@@ -52,7 +52,7 @@ Plain filesystem work:
 
 - List: `**/*.md` under the vault root.
 - Search: grep for terms, then read the hits. Prefer reading a few whole notes over
-  grepping fragments — notes are short and context matters.
+  grepping fragments: notes are short and context matters.
 - There is no local semantic index. For semantic search, team spaces and graph
   connections use the MCP tools (§7); without the server, keyword search plus
   reading is all there is. Say so instead of claiming a hit does not exist.
@@ -67,14 +67,14 @@ Rules:
 - **One note, one topic.** Filename = the topic in the user's language, plus `.md`.
 - **Keep filenames boring:** letters, digits, spaces, `-`, `_`. The app sanitizes
   `< > : " / \ | ? *`, control characters and leading/trailing dots or spaces when it
-  writes a note itself — a file whose name needs sanitizing can end up duplicated
+  writes a note itself: a file whose name needs sanitizing can end up duplicated
   under two names. Avoid the characters instead.
 - **Append, don't rewrite.** For an existing note, add a section; do not restructure
   or reformat a note the user wrote.
 - **Never overwrite a note the user currently has open in the app.** Sync is
   last-write-wins on disk with no lock, so a concurrent edit loses one side. If in
   doubt, write a new note or ask.
-- **No `..`, no absolute paths, no symlinks** inside the vault — the app's path
+- **No `..`, no absolute paths, no symlinks** inside the vault: the app's path
   resolver rejects those and would stop reading such a note entirely.
 - **Never delete** a note unless the user explicitly asks. A deletion on disk
   propagates to the cloud index on the next sync.
@@ -93,21 +93,21 @@ created: 2026-08-07
 <what was learned, in the user's language>
 
 ## Context
-<where this came from — repo, ticket, conversation>
+<where this came from: repo, ticket, conversation>
 ```
 
 ## 5. How a write reaches Domana
 
 The folder is the source of truth. While the app runs, it picks up external changes
-within a moment and updates its cloud index — the index the in-app agent searches.
+within a moment and updates its cloud index: the index the in-app agent searches.
 If the app is closed, the same merge runs at the next start, with disk winning on
-conflict. So writes are safe either way — they are simply not searchable in-app
+conflict. So writes are safe either way: they are simply not searchable in-app
 until the app has seen them.
 
 ## 6. Do not touch
 
 - `.git/`, `.obsidian/`, and any other hidden folder in the vault.
-- Non-Markdown files in the vault — they are imported originals; overwriting one
+- Non-Markdown files in the vault: they are imported originals; overwriting one
   destroys the binary the app's viewer reads.
 - Anything outside the vault root.
 - Credentials. Nothing in this skill needs any: not the user's Domana login, not
@@ -131,7 +131,7 @@ with `opencode mcp auth domana`), these tools reach the synced knowledge:
 | `lint_knowledge` | broken links, orphans, missing indexes, duplicate names |
 | `create_note`, `append_note`, `edit_note`, `rewrite_note`, `move_note`, `trash_note` | writes: personal cloud spaces at once; in a team space the change becomes a **proposal the user approves in the Domana app** (see below) |
 | `propose_batch` | several related changes as ONE unit inside one space (create, append, edit, rewrite, move, trash, in order): checked up front, refused as a whole if one entry would fail; a personal space applies it in one transaction, a team space gets ONE proposal for the set |
-| `fetch_image` | download a picture (png, jpeg, webp, gif, up to 10 MB) from a public https URL into `assets/` beside a note; the reply carries the `![alt](assets/…)` line for you to write — in a team space it returns an `asset` entry to pass unchanged into `propose_batch` |
+| `fetch_image` | download a picture (png, jpeg, webp, gif, up to 10 MB) from a public https URL into `assets/` beside a note; the reply carries the `![alt](assets/…)` line for you to write. In a team space it returns an `asset` entry to pass unchanged into `propose_batch` |
 | `await_proposal` | outcome of a team proposal: accepted, dismissed, expired or pending (one call waits up to 10 s) |
 
 Rules that the server enforces and you should respect up front:
@@ -154,7 +154,7 @@ Rules that the server enforces and you should respect up front:
 - Every tool call counts against the user's monthly quota (free: 100 calls). Read a
   note once and work from it; do not poll.
 - A result whose first line is a code such as `not_found`, `read_only_space`,
-  `local_only_space`, `ambiguous`, `conflict` or `no_match` is a refusal — fix the
+  `local_only_space`, `ambiguous`, `conflict` or `no_match` is a refusal: fix the
   call (pass `space_id`, re-read the note) instead of retrying blindly.
 - Chat history and the extracted text of imported files stay in the app; they are
   not reachable through MCP either.
