@@ -17,5 +17,6 @@
   },
   "exports": {
     ".": "./opencode/index.js"
-  }
+  },
+  "license": "MIT"
 }

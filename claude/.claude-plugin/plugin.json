@@ -5,5 +5,9 @@
   "author": {
     "name": "Domana",
     "url": "https://www.domana.at"
-  }
+  },
+  "license": "MIT",
+  "privacyPolicyUrl": "https://www.domana.at/datenschutz",
+  "homepage": "https://brain.domana.at",
+  "repository": "https://github.com/domana-at/agent-plugins"
 }
