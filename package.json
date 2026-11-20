@@ -1,9 +1,8 @@
 {
   "name": "domana-opencode",
-  "version": "1.0.0",
-  "description": "Domana Brain plugin for opencode: the domana MCP server and the domana-brain skill",
+  "version": "2.0.0",
+  "description": "Domana Brain plugin for opencode 2: the domana MCP server and the domana-brain skill",
   "type": "module",
-  "main": "opencode/plugin.js",
   "files": [
     "opencode"
   ],
@@ -13,6 +12,10 @@
   },
   "homepage": "https://www.domana.at",
   "scripts": {
-    "check:dashes": "node scripts/check-dashes.mjs"
+    "check:dashes": "node scripts/check-dashes.mjs",
+    "test": "node --test opencode/index.test.js"
+  },
+  "exports": {
+    ".": "./opencode/index.js"
   }
 }
